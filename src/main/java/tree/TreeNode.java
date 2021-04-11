@@ -1,8 +1,10 @@
 package tree;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class TreeNode {
     private String key;
     private String value;
@@ -11,10 +13,13 @@ public class TreeNode {
     private TreeNode centerSon;
     private TreeNode rightSon;
     
+    public TreeNode(String key, String value) {
+        this.key = key;
+        this.value = value;
+    }
+    
     @Override
     public String toString() {
-        String nodeValue = null;
-        nodeValue = key + "=" + value + " - VISITED";
-        return nodeValue;
+        return key + "=" + value + " - VISITED";
     }
 }

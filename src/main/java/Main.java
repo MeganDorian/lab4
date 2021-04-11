@@ -27,8 +27,12 @@ public class Main {
             }
     
             Algorithm algorithm = new Algorithm(tree);
-            algorithm.doAlgorithm();
-    
+            var answer = algorithm.doAlgorithm();
+            if (answer != null) {
+                System.out.println(answer);
+            } else {
+                System.err.println("Ответ не был найден");
+            }
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }

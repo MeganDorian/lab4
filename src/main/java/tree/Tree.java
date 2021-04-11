@@ -6,7 +6,7 @@ import java.util.Queue;
 
 public class Tree {
     @Getter
-    private TreeNode root;
+    private final TreeNode root;
     
     public Tree(String rootValue) {
         root = new TreeNode();
@@ -28,8 +28,8 @@ public class Tree {
         
         while (!list.isEmpty()) {
             String[] item = getKeyValue(list.peek());
-            
-            node = findNode(currentNode, item[0], item[1]);
+    
+            node = findNode(currentNode, item[0], item[1], false);
             
             if (node != null && node.getValue().equals(item[1])) {
                 list.remove();
@@ -65,7 +65,7 @@ public class Tree {
         }
     }
     
-    public TreeNode findNode(TreeNode node, String key, String value) {
+    public TreeNode findNode(TreeNode node, String key, String value, boolean isOutput) {
         try {
             while (!node.getKey().equals(key)) {
                 if (node.getLeftSon() != null && node.getLeftSon().getKey().equals(key)) {
@@ -80,6 +80,9 @@ public class Tree {
             }
             
             if (node.getValue().equals(value)) {
+                if (isOutput) {
+                    System.out.println(node);
+                }
                 return node;
             } else {
                 node = node.getRoot();
@@ -95,6 +98,10 @@ public class Tree {
                         return null;
                     }
                 }
+    
+                if (isOutput) {
+                    System.out.println(node);
+                }
                 return node;
             }
         } catch (NullPointerException e) {
@@ -102,15 +109,30 @@ public class Tree {
         }
     }
     
-    public void search(TreeNode node) {
+    public TreeNode search(TreeNode node, TreeNode find) {
+        TreeNode current = null;
         if (node == null) {
-            return;
+            return current;
         }
         if (node != root) {
             System.out.println(node);
         }
-        search(node.getLeftSon());
-        search(node.getCenterSon());
-        search(node.getRightSon());
+        
+        if (node.getKey().equals(find.getKey()) && node.getValue().equals(find.getValue())) {
+            current = node;
+            return current;
+        }
+        
+        if (current == null) {
+            current = search(node.getLeftSon(), find);
+        }
+        if (current == null) {
+            current = search(node.getCenterSon(), find);
+        }
+        if (current == null) {
+            current = search(node.getRightSon(), find);
+        }
+        
+        return current;
     }
 }
