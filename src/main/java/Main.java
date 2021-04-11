@@ -12,20 +12,23 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Main {
-    private final static String fileName = "rules.txt";
+    private final static String fileName = "dataBase.txt";
     
     public static void main(String[] args) {
         Main app = new Main();
         try (BufferedReader reader = new BufferedReader(new FileReader(app.getFileFromResource(), StandardCharsets.UTF_8))) {
             Tree tree = new Tree("Stress level");
-            
+    
             String line = reader.readLine();
             while (line != null) {
                 var list = getList(line);
                 tree.add(list);
                 line = reader.readLine();
             }
-            
+    
+            Algorithm algorithm = new Algorithm(tree);
+            algorithm.doAlgorithm();
+    
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
