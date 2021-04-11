@@ -1,9 +1,12 @@
 package tree;
 
+import lombok.Getter;
+
 import java.util.Queue;
 
 public class Tree {
-    TreeNode root;
+    @Getter
+    private TreeNode root;
     
     public Tree(String rootValue) {
         root = new TreeNode();
@@ -97,5 +100,17 @@ public class Tree {
         } catch (NullPointerException e) {
             return node;
         }
+    }
+    
+    public void search(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        if (node != root) {
+            System.out.println(node);
+        }
+        search(node.getLeftSon());
+        search(node.getCenterSon());
+        search(node.getRightSon());
     }
 }

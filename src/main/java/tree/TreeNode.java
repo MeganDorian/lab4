@@ -13,6 +13,8 @@ public class TreeNode {
     
     @Override
     public String toString() {
-        return key + "=" + value;
+        String nodeValue = null;
+        nodeValue = key + "=" + value + " - VISITED";
+        return nodeValue;
     }
 }
